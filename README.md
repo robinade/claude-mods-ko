@@ -48,11 +48,11 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 | mod | 하는 일 | 시작 | 자세히 |
 |---|---|---|---|
 | **prompt-enhancer** | 대충 쓴 초안을 범위·순서·완료 기준이 있는 프롬프트로 다듬어 입력창에 넣어 줘요. 세션 모델의 프롬프트 가이드 카드도 반영해요. | 입력창 위 띠의 **다듬기 (e)** 또는 `/enhance <초안>` | [README](prompt-enhancer/README.md) |
-| **plain-talk** (폴더 `basic-claude`) | 쉬운 한국어로, 그것만 읽어도 이해되게 답하게 해요. 답마다 작은 모델이 검사하고, 어려우면 한 번 다시 쓰게 해요. | `/plain` | [README](basic-claude/README.md) |
-| **assumption-tracker** | Claude가 작업 중 정한 가정을 한 줄씩 기록해요. 맞음/틀림을 표시하면 정정이 Claude에게 가고, 프로젝트 규칙으로 남아요. | `0` 또는 `/assumptions` | [README](assumption-tracker/README.md) |
-| **idea-shelf** | 작업 범위 밖의 곁가지는 손대지 않고 선반에 올려요. 나중에 버튼 하나로 Claude에게 넘겨요. | `/idea <내용>` | [README](idea-shelf/README.md) |
-| **session-monitor** | 모든 폴더에서 돌고 있는 Claude 세션을 한 패널에 모아 "확인 필요 / 작업 중 / 완료"로 보여 줘요. 기다리는 세션에 바로 답장할 수 있어요. | `/monitor` | [README](session-monitor/README.md) |
-| **session-tracker** | 같은 폴더의 다른 세션이 무엇을 했고 하는 중인지 보여 주고, 같은 파일을 고치면 경고해요. | `/tracker` | [README](session-tracker/README.md) |
+| **plain-talk** (폴더 `basic-claude`) | 쉬운 한국어로, 그것만 읽어도 이해되게 답하게 해요. 답마다 작은 모델이 검사하고, 어려우면 한 번 다시 쓰게 해요. | 자동으로 켜져요 (수준 바꾸기: `/plain`) | [README](basic-claude/README.md) |
+| **assumption-tracker** | Claude가 작업 중 정한 가정을 한 줄씩 기록해요. 맞음/틀림을 표시하면 정정이 Claude에게 가고, 프로젝트 규칙으로 남아요. | 작업 뒤 빈 입력창에서 **`0`** (또는 `/assumptions`) | [README](assumption-tracker/README.md) |
+| **idea-shelf** | 작업 범위 밖의 곁가지는 손대지 않고 선반에 올려요. 나중에 버튼 하나로 Claude에게 넘겨요. | Claude가 알아서 올려요 · 선반 열기·직접 올리기: `/idea` | [README](idea-shelf/README.md) |
+| **session-monitor** | 모든 폴더에서 돌고 있는 Claude 세션을 한 패널에 모아 "확인 필요 / 작업 중 / 완료"로 보여 줘요. 기다리는 세션에 바로 답장할 수 있어요. | 띠의 **[ 세션 ]** 버튼 (또는 `/monitor`) | [README](session-monitor/README.md) |
+| **session-tracker** | 같은 폴더의 다른 세션이 무엇을 했고 하는 중인지 보여 주고, 같은 파일을 고치면 경고해요. | 같은 폴더에 세션이 둘 이상이면 띠에 자동 표시 · **접기/펼치기** (또는 `/tracker`) | [README](session-tracker/README.md) |
 
 ## 쓰기 전과 후 (before / after)
 
@@ -122,12 +122,24 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 </tr>
 <tr>
 <td>옵션 이름, 날짜 형식, 표시 방법을 Claude가 정했지만 긴 답 속에 섞여 있어 놓치기 쉬워요.</td>
-<td>정한 가정이 옆 패널에 한 줄씩 쌓여요. <code>1</code>은 맞음, <code>2</code>는 틀림이고, 틀림에 고칠 방법을 적으면 Claude가 그 가정에 기댄 작업을 고쳐요. 정정은 프로젝트 규칙으로 남아 다음 세션에도 적용돼요.</td>
+<td>작업이 끝나면 입력창 위 띠에 <code>◆ 확인할 가정 N개 · 0을 누르면 열려요</code>가 떠요. 빈 입력창에서 <b><code>0</code></b>만 누르면 옆 패널에 정한 가정이 한 줄씩 나와요. <code>1</code>은 맞음, <code>2</code>는 틀림이고, 틀림에 고칠 방법을 적으면 Claude가 그 가정에 기댄 작업을 고쳐요. 정정은 프로젝트 규칙으로 남아 다음 세션에도 적용돼요.</td>
 </tr>
 </table>
 
-<details open><summary>움직이는 화면 보기</summary>
-<img src="docs/media/assumption-tracker-demo.gif" alt="assumption-tracker 동작: 작업이 끝나고 가정 패널을 열어 1 키로 맞음을 표시하는 모습" width="820">
+#### 쓰는 방법
+
+**방법 1 — 빈 입력창에서 `0`** (가장 빨라요)
+
+띠에 `0을 누르면 열려요`가 보이면 `0` → 패널이 열려요. 패널에서 `1` 맞음, `2` 틀림, `Esc` 닫기. 숫자 키라 한글 입력 상태에서도 그대로 먹어요.
+
+<img src="docs/media/assumption-tracker-key.gif" alt="방법 1: 작업이 끝나 띠에 '0을 누르면 열려요'가 뜨고, 0을 누르자 가정 패널이 열리고, 1로 맞음 표시 후 Esc로 닫는 모습" width="820">
+
+**방법 2 — `/assumptions` 명령**
+
+띠가 안 보일 때(아직 가정이 없을 때)도 패널을 열 수 있어요.
+
+<details><summary>방법 2 화면 보기</summary>
+<img src="docs/media/assumption-tracker-demo.gif" alt="방법 2: /assumptions 명령으로 가정 패널을 여는 모습" width="820">
 </details>
 
 ### idea-shelf — 곁가지는 선반에, 작업은 부탁한 만큼만
@@ -162,12 +174,24 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 </tr>
 <tr>
 <td>지금 창에서는 다른 세션이 무엇을 하는지, 나를 기다리는지 알 수 없어요. 창을 하나씩 열어 봐야 해요.</td>
-<td>입력창 위 띠에 <code>? 확인 필요 · ● 작업 중 · ✓ 완료</code> 개수가 늘 보여요. <code>/monitor</code>를 열면 세션마다 상태, 기다리는 이유, 폴더가 나오고, 기다리는 세션에는 <b>답장</b>을, 다른 세션은 <b>이어하기</b>로 이어 갈 수 있어요.</td>
+<td>입력창 위 띠에 <code>[ 세션 ] ? 확인 필요 · ● 작업 중 · ✓ 완료</code> 개수가 늘 보여요. 띠의 <b>[ 세션 ]</b> 버튼을 누르면 패널이 펼쳐지고, 세션마다 상태, 기다리는 이유, 폴더가 나와요. 기다리는 세션에는 <b>답장</b>을, 다른 세션은 <b>이어하기</b>로 이어 가요. <code>Esc</code>나 버튼을 다시 누르면 접혀요.</td>
 </tr>
 </table>
 
-<details open><summary>움직이는 화면 보기</summary>
-<img src="docs/media/session-monitor-demo.gif" alt="session-monitor 동작: /monitor를 입력하자 다른 폴더 세션까지 상태별로 모인 패널이 열리는 모습" width="820">
+#### 쓰는 방법
+
+**방법 1 — 띠의 [ 세션 ] 버튼으로 펼치고 접기** (가장 빨라요)
+
+띠의 **[ 세션 ]** 을 클릭하거나, 키보드로 `ctrl+x tab` → `Enter`. 패널이 펼쳐지고, `Esc`(또는 버튼을 다시 누르기)로 접어요. 접혀 있어도 띠의 개수는 늘 보여요.
+
+<img src="docs/media/session-monitor-button.gif" alt="방법 1: 띠의 세션 버튼을 눌러 다른 폴더 세션까지 모인 패널을 펼치고, Esc로 다시 접는 모습" width="820">
+
+**방법 2 — `/monitor` 명령**
+
+같은 패널을 명령으로 열고 닫아요.
+
+<details><summary>방법 2 화면 보기</summary>
+<img src="docs/media/session-monitor-demo.gif" alt="방법 2: /monitor 명령으로 세션 패널을 여는 모습" width="820">
 </details>
 
 ### session-tracker — 같은 폴더의 다른 세션과 충돌 경고
@@ -182,13 +206,13 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 </tr>
 <tr>
 <td>다른 세션이 1분 전에 같은 파일을 고쳤다는 걸 모른 채 수정해요.</td>
-<td>입력창 위에 같은 폴더 세션의 제목·상태·다음 할 일이 보이고, 같은 파일을 고치면 <code>⚠ 충돌</code> 경고가 떠요. Claude에게도 "다시 읽고, 그 세션의 변경은 그대로 두라"는 안내가 붙어요.</td>
+<td>명령 없이 자동으로, 입력창 위에 같은 폴더 세션의 제목·상태·다음 할 일이 떠요. 같은 파일을 고치면 <code>⚠ 충돌</code> 경고가 뜨고, Claude에게도 "다시 읽고, 그 세션의 변경은 그대로 두라"는 안내가 붙어요. 띠가 길면 <b>접기</b>로 한 줄로 줄이고 <b>펼치기</b>로 다시 봐요.</td>
 </tr>
 </table>
 
-<details open><summary>움직이는 화면 보기</summary>
-<img src="docs/media/session-tracker-demo.gif" alt="session-tracker 동작: 다른 세션의 요약이 띠에 뜨고, 같은 파일을 고치자 충돌 경고가 뜨는 모습" width="820">
-</details>
+띠는 저절로 떠요. 접기/펼치기는 띠의 버튼을 클릭하거나 `ctrl+x tab` → `Enter`. 패널로 자세히 보려면 `/tracker`.
+
+<img src="docs/media/session-tracker-demo.gif" alt="session-tracker 동작: 다른 세션의 요약이 띠에 저절로 뜨고, 같은 파일을 고치자 충돌 경고가 뜨고, 띠를 접었다가 다시 펼치는 모습" width="820">
 
 ## 설치 가이드
 
@@ -239,16 +263,16 @@ done
 claude plugin list        # 6개가 @claude-mods-ko 로 보이고 enabled 이면 성공
 ```
 
-새 세션을 열고 아래를 하나씩 입력해 봐요.
+새 세션을 열고 아래를 하나씩 해 봐요. 띠의 버튼은 클릭하거나 `ctrl+x tab` → `Enter`로 눌러요.
 
-| 입력 | 이렇게 되면 정상 |
+| 해 볼 것 | 이렇게 되면 정상 |
 |---|---|
 | 입력창에 `로그인 버그 고쳐줘`를 쓰고 띠의 **다듬기 (e)** (또는 `/enhance 로그인 버그 고쳐줘`) | 다듬은 프롬프트가 입력창에 들어오고, 띠에 무엇을 더했는지 메모가 떠요 |
-| `/plain` | 지금 수준(기본 `초보`)과 아는 용어 개수가 나와요 |
-| `/assumptions` | 옆에 가정 패널이 열려요 |
+| 아무 질문이나 보내기 (설정 보기: `/plain`) | 답이 끝나면 입력창 위 띠에 `✓ 쉬워요`나 `✗ 문제`가 떠요 |
+| 작은 작업을 시킨 뒤 빈 입력창에서 `0` (또는 `/assumptions`) | 옆에 가정 패널이 열려요. 띠가 없으면 아직 기록된 가정이 없는 거예요 |
 | `/idea 테스트 아이디어` | 선반에 올라가고 상태 줄에 `💡 아이디어 1개`가 떠요 |
-| `/monitor` | 실행 중인 세션 목록 패널이 열려요 |
-| `/tracker` | 같은 폴더 세션 패널이 열려요 |
+| 띠의 **[ 세션 ]** 버튼 (또는 `/monitor`) | 실행 중인 세션 목록 패널이 펼쳐지고, `Esc`로 접혀요 |
+| 같은 폴더에서 Claude Code를 하나 더 열기 (또는 `/tracker`) | 입력창 위에 다른 세션 띠가 저절로 떠요 |
 
 ### 4. 업데이트
 
@@ -290,11 +314,11 @@ claude --plugin-dir claude-mods-ko/session-monitor
 | mod | 자주 쓰는 것 | 알아 두면 좋은 것 |
 |---|---|---|
 | [prompt-enhancer](prompt-enhancer/README.md) | 띠의 **다듬기 (e)** / **보내기 (s)** · `/enhance <초안>` | 길게 붙여 넣은 글은 `/enhance ` 뒤에 붙여 넣어요. 고쳐서 보낸 기록을 보고 다음 다듬기 길이를 맞춰요. 모델별 프롬프트 카드는 `prompt-enhancer/cards/`에 있어요. |
-| [plain-talk](basic-claude/README.md) | `/plain 초보` · `/plain 전문가` · `/plain 끄기` · `/plain know <용어>` | 작업한 턴은 답을 **완료 / 남은 일 / 다음 할 일**로 끝내요. 아는 용어로 등록하면 더 풀지 않아요. |
-| [assumption-tracker](assumption-tracker/README.md) | `0` 또는 `/assumptions` · 패널에서 `1` 맞음 / `2` 틀림 | 틀림에 고칠 방법을 적고 Enter를 누르면 정정이 Claude에게 가고 프로젝트 규칙이 돼요. |
-| [idea-shelf](idea-shelf/README.md) | `/idea <내용>` · `/idea` | 방금 한 작업과 맞는 아이디어가 있으면 `💡` 줄로 알려 줘요. 모델 호출 없이 단어 겹침으로 비교해요. |
-| [session-monitor](session-monitor/README.md) | `/monitor` · 띠의 **세션** 버튼 | **이어하기**는 `cd <폴더> && claude --resume <id>`를 클립보드에 복사해요. **답장**은 기다리는 세션에 메시지로 보내요. |
-| [session-tracker](session-tracker/README.md) | `/tracker` · 띠의 **접기/펼치기** | 같은 파일을 최근 30분 안에 다른 세션이 고쳤으면 경고해요. 서브에이전트가 고친 파일은 추적하지 않아요. |
+| [plain-talk](basic-claude/README.md) | 자동 · 띠의 **이건 알아요** 버튼 · `/plain 초보` · `/plain 전문가` · `/plain 끄기` · `/plain know <용어>` | 작업한 턴은 답을 **완료 / 남은 일 / 다음 할 일**로 끝내요. 아는 용어로 등록하면 더 풀지 않아요. |
+| [assumption-tracker](assumption-tracker/README.md) | 빈 입력창에서 **`0`** · 패널에서 `1` 맞음 / `2` 틀림 / `Esc` 닫기 · `/assumptions` | 틀림에 고칠 방법을 적고 Enter를 누르면 정정이 Claude에게 가고 프로젝트 규칙이 돼요. |
+| [idea-shelf](idea-shelf/README.md) | 자동(Claude가 올림) · `/idea <내용>` · `/idea` · 띠의 💡 **보내기/닫기** | 방금 한 작업과 맞는 아이디어가 있으면 `💡` 줄로 알려 줘요. 모델 호출 없이 단어 겹침으로 비교해요. |
+| [session-monitor](session-monitor/README.md) | 띠의 **[ 세션 ]** 버튼(펼치기) · `Esc`(접기) · `/monitor` | **이어하기**는 `cd <폴더> && claude --resume <id>`를 클립보드에 복사해요. **답장**은 기다리는 세션에 메시지로 보내요. |
+| [session-tracker](session-tracker/README.md) | 자동 표시 · 띠의 **접기/펼치기** · `/tracker` | 같은 파일을 최근 30분 안에 다른 세션이 고쳤으면 경고해요. 서브에이전트가 고친 파일은 추적하지 않아요. |
 
 ## 비용과 필요 조건
 
