@@ -1,6 +1,6 @@
 # Claude Code mod 한국어판 (claude-mods-ko)
 
-**Claude Code를 한국어로 쓰는 사람을 위한 mod 6종.** 답은 쉬운 한국어로, 대충 쓴 요청은 구체적으로, Claude가 몰래 정한 가정과 곁가지는 눈에 보이게, 여러 세션은 한 화면에서.
+**Claude Code를 한국어로 쓰는 사람을 위한 mod 6종.** 대충 쓴 요청은 버튼 한 번에 구체적으로, 답은 쉬운 한국어로, Claude가 몰래 정한 가정과 곁가지는 눈에 보이게, 여러 세션은 한 화면에서.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Claude Code 2.1.295+](https://img.shields.io/badge/Claude%20Code-2.1.295%2B-d97757.svg)
@@ -9,7 +9,7 @@
 한국어판 제작: [robinade](https://github.com/robinade)
 
 <p align="center">
-  <img src="docs/media/session-monitor-demo.gif" alt="세션 모니터: 다른 폴더까지 포함해 실행 중인 Claude 세션 4개를 한 패널에서 보는 화면" width="820">
+  <img src="docs/media/prompt-enhancer-button.gif" alt="프롬프트 다듬기: 입력창에 쓴 짧은 초안이 다듬기 버튼 한 번으로 진행 순서와 완료 기준이 있는 프롬프트로 바뀌는 모습" width="820">
 </p>
 
 ## 목차
@@ -30,8 +30,8 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 
 | 자주 겪는 일 | 그래서 생기는 문제 | 도와주는 mod |
 |---|---|---|
-| 답에 ESM, CommonJS, rebase 같은 말이 설명 없이 섞여 나와요 | 답을 다시 물어보느라 시간이 들고, 아는 척 넘어가면 나중에 사고가 나요 | **plain-talk** |
 | "이거 고쳐줘"처럼 짧게 던지게 돼요 | Claude가 범위와 완료 기준을 멋대로 정해요 | **prompt-enhancer** |
+| 답에 ESM, CommonJS, rebase 같은 말이 설명 없이 섞여 나와요 | 답을 다시 물어보느라 시간이 들고, 아는 척 넘어가면 나중에 사고가 나요 | **plain-talk** |
 | Claude가 날짜 형식, 명령 이름 같은 걸 혼자 정하고 넘어가요 | 한참 뒤에 "이게 왜 이렇게 됐지?"를 발견해요 | **assumption-tracker** |
 | 작업하다 보인 다른 문제를 Claude가 함께 고치거나, 답 끝에 말로만 남겨요 | 변경이 커져 검토가 어렵거나, 말로 남긴 건 스크롤 위로 사라져 잊혀요 | **idea-shelf** |
 | 터미널에 Claude 세션을 여러 개 띄워 둬요 | 어느 세션이 나를 기다리는지 창을 하나씩 열어 봐야 알아요 | **session-monitor** |
@@ -47,8 +47,8 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 
 | mod | 하는 일 | 시작 | 자세히 |
 |---|---|---|---|
+| **prompt-enhancer** | 대충 쓴 초안을 범위·순서·완료 기준이 있는 프롬프트로 다듬어 입력창에 넣어 줘요. 세션 모델의 프롬프트 가이드 카드도 반영해요. | 입력창 위 띠의 **다듬기 (e)** 또는 `/enhance <초안>` | [README](prompt-enhancer/README.md) |
 | **plain-talk** (폴더 `basic-claude`) | 쉬운 한국어로, 그것만 읽어도 이해되게 답하게 해요. 답마다 작은 모델이 검사하고, 어려우면 한 번 다시 쓰게 해요. | `/plain` | [README](basic-claude/README.md) |
-| **prompt-enhancer** | 대충 쓴 초안을 범위·순서·완료 기준이 있는 프롬프트로 다듬어 입력창에 넣어 줘요. 세션 모델의 프롬프트 가이드 카드도 반영해요. | `/enhance <초안>` | [README](prompt-enhancer/README.md) |
 | **assumption-tracker** | Claude가 작업 중 정한 가정을 한 줄씩 기록해요. 맞음/틀림을 표시하면 정정이 Claude에게 가고, 프로젝트 규칙으로 남아요. | `0` 또는 `/assumptions` | [README](assumption-tracker/README.md) |
 | **idea-shelf** | 작업 범위 밖의 곁가지는 손대지 않고 선반에 올려요. 나중에 버튼 하나로 Claude에게 넘겨요. | `/idea <내용>` | [README](idea-shelf/README.md) |
 | **session-monitor** | 모든 폴더에서 돌고 있는 Claude 세션을 한 패널에 모아 "확인 필요 / 작업 중 / 완료"로 보여 줘요. 기다리는 세션에 바로 답장할 수 있어요. | `/monitor` | [README](session-monitor/README.md) |
@@ -57,6 +57,38 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 ## 쓰기 전과 후 (before / after)
 
 아래 화면은 모두 데모용 빈 폴더의 작은 할 일 앱(`~/todo-app`)에서 실제로 Claude Code를 실행해 찍었어요. 왼쪽은 mod를 끈 상태, 오른쪽은 그 mod 하나만 켠 상태에서 같은 요청을 보낸 결과예요. Claude의 답은 매번 조금씩 달라요. 이미지를 누르면 크게 볼 수 있어요.
+
+### prompt-enhancer — 대충 쓴 요청을 구체적으로
+
+요청 초안: `done 명령이 이상해 고쳐줘`
+
+<table>
+<tr><th width="50%">mod 없이</th><th width="50%">prompt-enhancer 켜고</th></tr>
+<tr>
+<td><img src="docs/media/prompt-enhancer-before.png" alt="prompt-enhancer 없이: 짧은 초안이 입력창에 그대로 있음"></td>
+<td><img src="docs/media/prompt-enhancer-after.png" alt="prompt-enhancer 켜고: 다듬기 버튼을 누르자 진행 방법·질문할 때·완료 기준이 있는 프롬프트가 입력창에 들어가고, 위 띠에 무엇을 더했는지 메모가 뜬 화면"></td>
+</tr>
+<tr>
+<td>무엇이 이상한지, 어디까지 고칠지, 언제 끝난 건지 없이 그대로 보내게 돼요.</td>
+<td>입력창 위 띠의 <b>다듬기 (e)</b>를 누르면 진행 순서, 막힐 때만 물을 것, 완료 기준을 넣어 입력창을 바꿔 줘요. 위 띠에 무엇을 더했는지 메모가 떠요. 고쳐서 보내거나 그대로 Enter(또는 <b>보내기 (s)</b>)를 누르면 돼요.</td>
+</tr>
+</table>
+
+#### 쓰는 방법 두 가지
+
+**방법 1 — 입력창에 쓰고 [다듬기 (e)] 누르기** (가장 간단해요)
+
+평소처럼 입력창에 초안을 쓴 다음, 입력창 바로 위 띠의 **[ 다듬기 (e) ]** 를 클릭해요. 키보드로는 `ctrl+x tab`으로 띠에 들어가 `e`나 `Enter`를 눌러요(한글 입력 상태라면 `Enter`가 편해요). 아래 화면이 이 방법이에요.
+
+<img src="docs/media/prompt-enhancer-button.gif" alt="방법 1: 입력창에 초안을 쓰고, 띠의 다듬기 버튼을 누르자 다듬은 프롬프트와 메모가 뜨는 모습" width="820">
+
+**방법 2 — `/enhance <초안>` 명령**
+
+명령 한 줄로 바로 다듬어요. 길게 붙여 넣은 글은 입력창에서 `[Pasted text #1 +45 lines]`처럼 접혀 버튼으로는 읽지 못해요. 이때는 `/enhance ` 뒤에 붙여 넣으면 돼요.
+
+<details open><summary>방법 2 화면 보기</summary>
+<img src="docs/media/prompt-enhancer-demo.gif" alt="방법 2: /enhance 명령으로 초안을 보내 다듬은 프롬프트가 입력창에 들어오는 모습" width="820">
+</details>
 
 ### plain-talk — 어려운 말 없이 답하게
 
@@ -76,26 +108,6 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 
 <details open><summary>움직이는 화면 보기</summary>
 <img src="docs/media/plain-talk-demo.gif" alt="plain-talk 동작: 질문을 보내고, 쉬운 답이 나온 뒤 검사 띠가 뜨는 모습" width="820">
-</details>
-
-### prompt-enhancer — 대충 쓴 요청을 구체적으로
-
-요청 초안: `done 명령이 이상해 고쳐줘`
-
-<table>
-<tr><th width="50%">mod 없이</th><th width="50%">prompt-enhancer 켜고</th></tr>
-<tr>
-<td><img src="docs/media/prompt-enhancer-before.png" alt="prompt-enhancer 없이: 짧은 초안이 입력창에 그대로 있음"></td>
-<td><img src="docs/media/prompt-enhancer-after.png" alt="prompt-enhancer 켜고: /enhance 뒤 진행 순서와 완료 기준이 있는 프롬프트가 입력창에 들어가고, 위 띠에 무엇을 더했는지 메모가 뜬 화면"></td>
-</tr>
-<tr>
-<td>무엇이 이상한지, 어디까지 고칠지, 언제 끝난 건지 없이 그대로 보내게 돼요.</td>
-<td><code>/enhance</code>가 진행 순서, 막힐 때만 물을 것, 완료 기준을 넣어 입력창을 바꿔 줘요. 위 띠에 무엇을 더했는지 메모가 떠요. 고쳐서 보내거나 그대로 Enter를 누르면 돼요.</td>
-</tr>
-</table>
-
-<details open><summary>움직이는 화면 보기</summary>
-<img src="docs/media/prompt-enhancer-demo.gif" alt="prompt-enhancer 동작: /enhance를 입력하고 다듬은 프롬프트가 입력창에 들어오는 모습" width="820">
 </details>
 
 ### assumption-tracker — Claude가 정한 가정을 눈앞에
@@ -198,8 +210,8 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 터미널에서 `claude`를 실행하고, 입력창에 원하는 mod를 한 줄씩 입력해요.
 
 ```
-/plugin install plain-talk --marketplace robinade/claude-mods-ko
 /plugin install prompt-enhancer --marketplace robinade/claude-mods-ko
+/plugin install plain-talk --marketplace robinade/claude-mods-ko
 /plugin install assumption-tracker --marketplace robinade/claude-mods-ko
 /plugin install idea-shelf --marketplace robinade/claude-mods-ko
 /plugin install session-monitor --marketplace robinade/claude-mods-ko
@@ -214,7 +226,7 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 
 ```
 claude plugin marketplace add robinade/claude-mods-ko
-for m in plain-talk prompt-enhancer assumption-tracker idea-shelf session-monitor session-tracker; do
+for m in prompt-enhancer plain-talk assumption-tracker idea-shelf session-monitor session-tracker; do
   claude plugin install $m@claude-mods-ko
 done
 ```
@@ -231,8 +243,8 @@ claude plugin list        # 6개가 @claude-mods-ko 로 보이고 enabled 이면
 
 | 입력 | 이렇게 되면 정상 |
 |---|---|
+| 입력창에 `로그인 버그 고쳐줘`를 쓰고 띠의 **다듬기 (e)** (또는 `/enhance 로그인 버그 고쳐줘`) | 다듬은 프롬프트가 입력창에 들어오고, 띠에 무엇을 더했는지 메모가 떠요 |
 | `/plain` | 지금 수준(기본 `초보`)과 아는 용어 개수가 나와요 |
-| `/enhance 로그인 버그 고쳐줘` | 다듬은 프롬프트가 입력창에 들어와요 |
 | `/assumptions` | 옆에 가정 패널이 열려요 |
 | `/idea 테스트 아이디어` | 선반에 올라가고 상태 줄에 `💡 아이디어 1개`가 떠요 |
 | `/monitor` | 실행 중인 세션 목록 패널이 열려요 |
@@ -277,8 +289,8 @@ claude --plugin-dir claude-mods-ko/session-monitor
 
 | mod | 자주 쓰는 것 | 알아 두면 좋은 것 |
 |---|---|---|
+| [prompt-enhancer](prompt-enhancer/README.md) | 띠의 **다듬기 (e)** / **보내기 (s)** · `/enhance <초안>` | 길게 붙여 넣은 글은 `/enhance ` 뒤에 붙여 넣어요. 고쳐서 보낸 기록을 보고 다음 다듬기 길이를 맞춰요. 모델별 프롬프트 카드는 `prompt-enhancer/cards/`에 있어요. |
 | [plain-talk](basic-claude/README.md) | `/plain 초보` · `/plain 전문가` · `/plain 끄기` · `/plain know <용어>` | 작업한 턴은 답을 **완료 / 남은 일 / 다음 할 일**로 끝내요. 아는 용어로 등록하면 더 풀지 않아요. |
-| [prompt-enhancer](prompt-enhancer/README.md) | `/enhance <초안>` · 띠의 **다듬기**/**보내기** | 길게 붙여 넣은 글은 `/enhance ` 뒤에 붙여 넣어요. 고쳐서 보낸 기록을 보고 다음 다듬기 길이를 맞춰요. 모델별 프롬프트 카드는 `prompt-enhancer/cards/`에 있어요. |
 | [assumption-tracker](assumption-tracker/README.md) | `0` 또는 `/assumptions` · 패널에서 `1` 맞음 / `2` 틀림 | 틀림에 고칠 방법을 적고 Enter를 누르면 정정이 Claude에게 가고 프로젝트 규칙이 돼요. |
 | [idea-shelf](idea-shelf/README.md) | `/idea <내용>` · `/idea` | 방금 한 작업과 맞는 아이디어가 있으면 `💡` 줄로 알려 줘요. 모델 호출 없이 단어 겹침으로 비교해요. |
 | [session-monitor](session-monitor/README.md) | `/monitor` · 띠의 **세션** 버튼 | **이어하기**는 `cd <폴더> && claude --resume <id>`를 클립보드에 복사해요. **답장**은 기다리는 세션에 메시지로 보내요. |
@@ -288,9 +300,9 @@ claude --plugin-dir claude-mods-ko/session-monitor
 
 - **Claude Code 2.1.295 이상.** mod 기능은 아직 미리보기(early access) 단계라 Claude Code 버전에 따라 동작이 바뀔 수 있어요.
 - **모델 호출 비용.** 일부 mod는 대화와 별도로 모델을 불러요. 그만큼 사용량이 늘어요.
+  - prompt-enhancer: 다듬을 때마다 세션 모델을 한 번 불러요.
   - plain-talk: 답변마다 작은 모델(haiku)로 한 번 검사하고, 실패한 답변은 Claude가 한 번 더 써요. 아끼려면 `/plain 전문가`나 `/plain 끄기`.
   - session-tracker: 턴이 끝날 때마다 haiku로 세션 요약을 한 번 만들어요.
-  - prompt-enhancer: 다듬을 때마다 세션 모델을 한 번 불러요.
   - assumption-tracker, idea-shelf, session-monitor는 따로 모델을 부르지 않아요.
 - **plain-talk 알림 소리**: 소리 파일은 저작권 때문에 레포에 넣지 않았어요. 넣는 방법은 [plain-talk README](basic-claude/README.md#알림-소리)에 있어요.
 
