@@ -69,7 +69,12 @@ Claude가 쉽고, 빠짐없고, 그것만 읽어도 이해되는 한국어로 �
 세션이 끝나서 확인이 필요하면 mod 폴더의 `sounds/done.aiff`를 재생해요. macOS에서만 소리가 나요(`afplay` 사용).
 
 - 이 소리 파일은 저작권 때문에 레포에 넣지 않았어요. 파일이 없으면 소리만 안 나고, 상태 줄과 밴드는 그대로 동작해요.
-- 소리를 쓰려면 설치된 plain-talk 폴더(보통 `~/.claude/plugins/` 아래)의 `sounds/done.aiff` 자리에 원하는 소리 파일을 넣으세요. 업데이트하면 다시 넣어야 할 수 있어요.
+- 소리를 쓰려면 설치된 plain-talk 폴더에 `sounds/done.aiff`를 직접 넣으세요. GitHub에서 설치했다면 폴더는 `~/.claude/plugins/cache/claude-mods-ko/plain-talk/<버전>/`이에요. 예를 들어 macOS 기본 소리를 내 컴퓨터에서만 쓰려면:
+  ```
+  d=~/.claude/plugins/cache/claude-mods-ko/plain-talk/0.3.0-ko.2
+  mkdir -p "$d/sounds" && cp /System/Library/Sounds/Glass.aiff "$d/sounds/done.aiff"
+  ```
+- 버전마다 폴더가 새로 생겨서, 업데이트한 뒤에는 새 버전 폴더에 다시 넣어야 해요.
 
 ## 비용
 
