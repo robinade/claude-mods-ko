@@ -216,6 +216,129 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 
 ## 설치 가이드
 
+### 빠른 설치: AI 에이전트에게 맡기기
+
+묶음을 하나 골라 **에이전트용 프롬프트**를 복사해요. Claude Code(또는 터미널 명령을 실행할 수 있는 다른 AI 에이전트)에 붙여 넣으면, 에이전트가 버전 확인부터 설치와 확인까지 알아서 해요. 직접 설치하고 싶으면 묶음마다 있는 **직접 입력할 명령어**를 쓰면 돼요.
+
+| 묶음 | 들어 있는 mod | 이런 분께 |
+|---|---|---|
+| [① 프롬프트 인핸서만](#묶음-1-프롬프트-인핸서만) | prompt-enhancer | 하나만 가볍게 써 보고 싶을 때 |
+| [② 스타터 패키지](#묶음-2-스타터-패키지-추천) **(추천)** | prompt-enhancer, plain-talk, assumption-tracker | 처음 쓰는 분. 여기서 시작하세요 |
+| [③ 풀셋](#묶음-3-풀셋-비추천) **(비추천)** | 6종 전부 | 스타터를 써 보고 마음에 든 분 |
+
+#### 묶음 1: 프롬프트 인핸서만
+
+대충 쓴 요청을 구체적인 프롬프트로 다듬어 주는 mod 하나만 설치해요.
+
+에이전트용 프롬프트:
+
+```
+Claude Code mod를 설치해 줘. 저장소는 https://github.com/robinade/claude-mods-ko 야.
+설치할 mod: prompt-enhancer
+
+아래 순서대로 진행해 줘.
+1. `claude --version`으로 버전을 확인해. 2.1.295보다 낮으면 `claude update`로 올려.
+2. `~/.claude/settings.json`의 `env`에 `CLAUDE_CODE_ATTRIBUTION_HEADER`가 있는지 확인해. 값이 "0"이면 mod가 따로 부르는 모델 호출이 429로 막혀. 그 줄을 지워도 되는지 나에게 먼저 묻고, 허락하면 지워.
+3. `claude plugin marketplace add robinade/claude-mods-ko`를 실행해. 이미 추가돼 있다고 나오면 그대로 다음 단계로 넘어가.
+4. 설치할 mod마다 `claude plugin install <mod 이름>@claude-mods-ko`를 실행해. 설치 범위는 기본값 user(이 컴퓨터의 모든 프로젝트)로 둬.
+5. `claude plugin list`로 설치한 mod가 `@claude-mods-ko`로 보이고 enabled인지 확인해.
+
+지켜 줘.
+- `plugin` 명령이 "not run from this spelling"으로 거부되면 `claude`가 다른 프로그램(예: cmux)의 래퍼라서 그래. `which -a claude`로 실제 실행 파일(예: `~/.local/bin/claude`)을 찾아 그걸로 다시 실행해.
+- 위 목록에 없는 mod는 설치하지 말고, 2번 말고는 설정 파일을 건드리지 마.
+
+끝나면 설치한 mod와 버전, 건너뛰거나 실패한 단계를 알려 줘. 그리고 Claude Code를 다시 시작하면(또는 `/reload-plugins`) mod가 켜진다고 안내해 줘.
+```
+
+직접 입력할 명령어 (터미널에서 `claude`를 실행한 뒤 입력창에):
+
+```
+/plugin marketplace add robinade/claude-mods-ko
+/plugin install prompt-enhancer@claude-mods-ko
+```
+
+#### 묶음 2: 스타터 패키지 (추천)
+
+처음이라면 이 묶음을 권해요. 요청은 구체적으로(prompt-enhancer), 답은 쉬운 한국어로(plain-talk), Claude가 혼자 정한 가정은 눈에 보이게(assumption-tracker) 해 줘요.
+
+에이전트용 프롬프트:
+
+```
+Claude Code mod를 설치해 줘. 저장소는 https://github.com/robinade/claude-mods-ko 야.
+설치할 mod: prompt-enhancer, plain-talk, assumption-tracker
+
+아래 순서대로 진행해 줘.
+1. `claude --version`으로 버전을 확인해. 2.1.295보다 낮으면 `claude update`로 올려.
+2. `~/.claude/settings.json`의 `env`에 `CLAUDE_CODE_ATTRIBUTION_HEADER`가 있는지 확인해. 값이 "0"이면 mod가 따로 부르는 모델 호출이 429로 막혀. 그 줄을 지워도 되는지 나에게 먼저 묻고, 허락하면 지워.
+3. `claude plugin marketplace add robinade/claude-mods-ko`를 실행해. 이미 추가돼 있다고 나오면 그대로 다음 단계로 넘어가.
+4. 설치할 mod마다 `claude plugin install <mod 이름>@claude-mods-ko`를 실행해. 설치 범위는 기본값 user(이 컴퓨터의 모든 프로젝트)로 둬.
+5. `claude plugin list`로 설치한 mod가 모두 `@claude-mods-ko`로 보이고 enabled인지 확인해.
+
+지켜 줘.
+- `plugin` 명령이 "not run from this spelling"으로 거부되면 `claude`가 다른 프로그램(예: cmux)의 래퍼라서 그래. `which -a claude`로 실제 실행 파일(예: `~/.local/bin/claude`)을 찾아 그걸로 다시 실행해.
+- 위 목록에 없는 mod는 설치하지 말고, 2번 말고는 설정 파일을 건드리지 마.
+
+끝나면 설치한 mod와 버전, 건너뛰거나 실패한 단계를 알려 줘. 그리고 Claude Code를 다시 시작하면(또는 `/reload-plugins`) mod가 켜진다고 안내해 줘.
+```
+
+직접 입력할 명령어 (터미널에서 `claude`를 실행한 뒤 입력창에):
+
+```
+/plugin marketplace add robinade/claude-mods-ko
+/plugin install prompt-enhancer@claude-mods-ko
+/plugin install plain-talk@claude-mods-ko
+/plugin install assumption-tracker@claude-mods-ko
+```
+
+#### 묶음 3: 풀셋 (비추천)
+
+> **풀셋은 권하지 않아요. 일단 스타터부터 써 보고, 마음에 들면 그때 전부 설치하세요.**
+> 6종을 한 번에 켜면 입력창 위 띠와 옆 패널이 한꺼번에 늘어나, 무엇이 어떤 mod인지 익히기 어려워요. plain-talk와 session-tracker는 답변이나 턴마다 모델을 한 번 더 불러서 사용량도 늘어요([비용과 필요 조건](#비용과-필요-조건) 참고). 스타터를 이미 깔았다면 남은 mod만 골라 더 설치해도 돼요.
+
+에이전트용 프롬프트:
+
+```
+Claude Code mod를 설치해 줘. 저장소는 https://github.com/robinade/claude-mods-ko 야.
+설치할 mod: prompt-enhancer, plain-talk, assumption-tracker, idea-shelf, session-monitor, session-tracker (풀셋, 6종 전부)
+
+시작하기 전에 "풀셋은 권하지 않아요. 스타터(prompt-enhancer, plain-talk, assumption-tracker)부터 써 보고 마음에 들면 전부 설치하는 걸 권해요"라고 나에게 한 번 알려 줘. 내가 그래도 풀셋을 원한다고 답하면 진행하고, 스타터로 바꾸겠다고 하면 스타터 3종만 설치해.
+
+아래 순서대로 진행해 줘.
+1. `claude --version`으로 버전을 확인해. 2.1.295보다 낮으면 `claude update`로 올려.
+2. `~/.claude/settings.json`의 `env`에 `CLAUDE_CODE_ATTRIBUTION_HEADER`가 있는지 확인해. 값이 "0"이면 mod가 따로 부르는 모델 호출이 429로 막혀. 그 줄을 지워도 되는지 나에게 먼저 묻고, 허락하면 지워.
+3. `claude plugin marketplace add robinade/claude-mods-ko`를 실행해. 이미 추가돼 있다고 나오면 그대로 다음 단계로 넘어가.
+4. 설치할 mod마다 `claude plugin install <mod 이름>@claude-mods-ko`를 실행해. 이미 설치된 mod는 건너뛰어. 설치 범위는 기본값 user(이 컴퓨터의 모든 프로젝트)로 둬.
+5. `claude plugin list`로 설치한 mod가 모두 `@claude-mods-ko`로 보이고 enabled인지 확인해.
+
+지켜 줘.
+- `plugin` 명령이 "not run from this spelling"으로 거부되면 `claude`가 다른 프로그램(예: cmux)의 래퍼라서 그래. `which -a claude`로 실제 실행 파일(예: `~/.local/bin/claude`)을 찾아 그걸로 다시 실행해.
+- 위 목록에 없는 mod는 설치하지 말고, 2번 말고는 설정 파일을 건드리지 마.
+
+끝나면 설치한 mod와 버전, 건너뛰거나 실패한 단계를 알려 줘. 그리고 Claude Code를 다시 시작하면(또는 `/reload-plugins`) mod가 켜진다고 안내해 줘.
+```
+
+직접 입력할 명령어 (터미널에서 `claude`를 실행한 뒤 입력창에):
+
+```
+/plugin marketplace add robinade/claude-mods-ko
+/plugin install prompt-enhancer@claude-mods-ko
+/plugin install plain-talk@claude-mods-ko
+/plugin install assumption-tracker@claude-mods-ko
+/plugin install idea-shelf@claude-mods-ko
+/plugin install session-monitor@claude-mods-ko
+/plugin install session-tracker@claude-mods-ko
+```
+
+#### 직접 설치할 때 알아 둘 것
+
+- 시작 전에 [1. 준비](#1-준비)의 버전과 설정을 먼저 확인하세요.
+- 첫 줄 `/plugin marketplace add`는 이 레포를 mod 목록으로 등록해요. 컴퓨터마다 한 번이면 돼요. 이미 등록돼 있으면 건너뛰어요.
+- `/plugin install`을 입력하면 설치 범위를 고르는 화면이 떠요. 맨 위의 `user`에 두고 Enter를 누르세요.
+- 터미널 명령으로 하려면 앞의 `/plugin`을 `claude plugin`으로 바꿔요. 예: `claude plugin install plain-talk@claude-mods-ko`
+- 설치가 끝나면 [3. 잘 깔렸는지 확인](#3-잘-깔렸는지-확인)으로 확인해요.
+
+아래 1~5는 같은 설치를 한 단계씩 자세히 설명한 거예요.
+
 ### 1. 준비
 
 1. **Claude Code 버전 확인** — 2.1.295 이상이어야 해요.
