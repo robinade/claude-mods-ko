@@ -174,7 +174,7 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 </tr>
 <tr>
 <td>지금 창에서는 다른 세션이 무엇을 하는지, 나를 기다리는지 알 수 없어요. 창을 하나씩 열어 봐야 해요.</td>
-<td>입력창 위 띠에 <code>[ 세션 ] ? 확인 필요 · ● 작업 중 · ✓ 완료</code> 개수가 늘 보여요. 띠의 <b>[ 세션 ]</b> 버튼을 누르면 패널이 펼쳐지고, 세션마다 상태, 기다리는 이유, 폴더가 나와요. 기다리는 세션에는 <b>답장</b>을, 다른 세션은 <b>이어하기</b>로 이어 가요. <code>Esc</code>나 버튼을 다시 누르면 접혀요.</td>
+<td>입력창 위 띠에 <code>[ 세션 ] ? 확인 필요 · ● 작업 중 · ✓ 완료</code> 개수가 늘 보여요. 띠의 <b>[ 세션 ]</b> 버튼을 누르면 패널이 펼쳐지고, 세션마다 상태, 기다리는 이유, 폴더가 나와요. 기다리는 세션에는 <b>답장</b>을, 다른 세션은 <b>이어하기</b>로 이어 가요. 버튼을 다시 누르면 접혀요.</td>
 </tr>
 </table>
 
@@ -182,13 +182,13 @@ Claude Code는 강력하지만, 한국어로 하루 종일 쓰다 보면 비슷�
 
 **방법 1 — 띠의 [ 세션 ] 버튼으로 펼치고 접기** (가장 빨라요)
 
-띠의 **[ 세션 ]** 을 클릭하거나, 키보드로 `ctrl+x tab` → `Enter`. 패널이 펼쳐지고, `Esc`(또는 버튼을 다시 누르기)로 접어요. 접혀 있어도 띠의 개수는 늘 보여요.
+띠의 **[ 세션 ]** 을 클릭하거나, 키보드로 `ctrl+x tab` → `Enter`. 패널이 펼쳐지고, 같은 버튼을 다시 누르면 접혀요. 접혀 있어도 띠의 개수는 늘 보여요.
 
-<img src="docs/media/session-monitor-button.gif" alt="방법 1: 띠의 세션 버튼을 눌러 다른 폴더 세션까지 모인 패널을 펼치고, Esc로 다시 접는 모습" width="820">
+<img src="docs/media/session-monitor-button.gif" alt="방법 1: 띠의 세션 버튼을 눌러 다른 폴더 세션까지 모인 패널을 펼치고, 같은 버튼을 다시 눌러 접는 모습" width="820">
 
 **방법 2 — `/monitor` 명령**
 
-같은 패널을 명령으로 열고 닫아요.
+같은 패널을 명령으로 열고 닫아요. 명령으로 열면 패널에 포커스가 가서 `Esc`로도 닫혀요.
 
 <details><summary>방법 2 화면 보기</summary>
 <img src="docs/media/session-monitor-demo.gif" alt="방법 2: /monitor 명령으로 세션 패널을 여는 모습" width="820">
@@ -271,7 +271,7 @@ claude plugin list        # 6개가 @claude-mods-ko 로 보이고 enabled 이면
 | 아무 질문이나 보내기 (설정 보기: `/plain`) | 답이 끝나면 입력창 위 띠에 `✓ 쉬워요`나 `✗ 문제`가 떠요 |
 | 작은 작업을 시킨 뒤 빈 입력창에서 `0` (또는 `/assumptions`) | 옆에 가정 패널이 열려요. 띠가 없으면 아직 기록된 가정이 없는 거예요 |
 | `/idea 테스트 아이디어` | 선반에 올라가고 상태 줄에 `💡 아이디어 1개`가 떠요 |
-| 띠의 **[ 세션 ]** 버튼 (또는 `/monitor`) | 실행 중인 세션 목록 패널이 펼쳐지고, `Esc`로 접혀요 |
+| 띠의 **[ 세션 ]** 버튼 (또는 `/monitor`) | 실행 중인 세션 목록 패널이 펼쳐지고, 버튼을 다시 누르면 접혀요 |
 | 같은 폴더에서 Claude Code를 하나 더 열기 (또는 `/tracker`) | 입력창 위에 다른 세션 띠가 저절로 떠요 |
 
 ### 4. 업데이트
@@ -317,7 +317,7 @@ claude --plugin-dir claude-mods-ko/session-monitor
 | [plain-talk](basic-claude/README.md) | 자동 · 띠의 **이건 알아요** 버튼 · `/plain 초보` · `/plain 전문가` · `/plain 끄기` · `/plain know <용어>` | 작업한 턴은 답을 **완료 / 남은 일 / 다음 할 일**로 끝내요. 아는 용어로 등록하면 더 풀지 않아요. |
 | [assumption-tracker](assumption-tracker/README.md) | 빈 입력창에서 **`0`** · 패널에서 `1` 맞음 / `2` 틀림 / `Esc` 닫기 · `/assumptions` | 틀림에 고칠 방법을 적고 Enter를 누르면 정정이 Claude에게 가고 프로젝트 규칙이 돼요. |
 | [idea-shelf](idea-shelf/README.md) | 자동(Claude가 올림) · `/idea <내용>` · `/idea` · 띠의 💡 **보내기/닫기** | 방금 한 작업과 맞는 아이디어가 있으면 `💡` 줄로 알려 줘요. 모델 호출 없이 단어 겹침으로 비교해요. |
-| [session-monitor](session-monitor/README.md) | 띠의 **[ 세션 ]** 버튼(펼치기) · `Esc`(접기) · `/monitor` | **이어하기**는 `cd <폴더> && claude --resume <id>`를 클립보드에 복사해요. **답장**은 기다리는 세션에 메시지로 보내요. |
+| [session-monitor](session-monitor/README.md) | 띠의 **[ 세션 ]** 버튼(누를 때마다 펼치기/접기) · `/monitor` | **이어하기**는 `cd <폴더> && claude --resume <id>`를 클립보드에 복사해요. **답장**은 기다리는 세션에 메시지로 보내요. |
 | [session-tracker](session-tracker/README.md) | 자동 표시 · 띠의 **접기/펼치기** · `/tracker` | 같은 파일을 최근 30분 안에 다른 세션이 고쳤으면 경고해요. 서브에이전트가 고친 파일은 추적하지 않아요. |
 
 ## 비용과 필요 조건
