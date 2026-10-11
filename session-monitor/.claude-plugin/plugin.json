@@ -1,0 +1,12 @@
+{
+  "name": "session-monitor",
+  "version": "0.2.0-ko.1",
+  "description": "실행 중인 모든 Claude Code 세션을 작업 중·확인 필요·완료로 나눠 보여 주는 패널",
+  "author": {
+    "name": "robinade",
+    "url": "https://github.com/robinade"
+  },
+  "repository": "https://github.com/robinade/claude-mods-ko",
+  "license": "MIT",
+  "types": "./types/index.d.ts"
+}

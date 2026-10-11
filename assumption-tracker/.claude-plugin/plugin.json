@@ -1,0 +1,12 @@
+{
+  "name": "assumption-tracker",
+  "version": "0.2.0-ko.1",
+  "description": "Claude가 작업하며 세운 가정을 기록해요. 옆 패널에서 맞음·틀림을 표시하면 정정이 Claude에게 전달돼요 (한국어판)",
+  "author": {
+    "name": "robinade",
+    "url": "https://github.com/robinade"
+  },
+  "repository": "https://github.com/robinade/claude-mods-ko",
+  "license": "MIT",
+  "types": "./types/index.d.ts"
+}

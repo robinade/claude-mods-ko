@@ -1,0 +1,8 @@
+# Written by Claude Code each time a mod loads; machine-specific (lists this machine's MCP tools).
+*/.claude-plugin/types/
+.DS_Store
+# Local-only: pre-edit backups, the two mods not published, and a macOS system sound (Glass.aiff) that can't be redistributed.
+.backups/
+clawd-pet/
+design-direction/
+basic-claude/sounds/done.aiff

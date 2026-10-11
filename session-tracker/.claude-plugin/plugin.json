@@ -1,0 +1,12 @@
+{
+  "name": "session-tracker",
+  "version": "0.2.0-ko.2",
+  "description": "같은 폴더의 Claude 세션마다 무엇을 했고, 하고 있고, 다음에 할지 보여 주고 같은 파일을 고치면 알려 줘요",
+  "author": {
+    "name": "robinade",
+    "url": "https://github.com/robinade"
+  },
+  "repository": "https://github.com/robinade/claude-mods-ko",
+  "license": "MIT",
+  "types": "./types/index.d.ts"
+}

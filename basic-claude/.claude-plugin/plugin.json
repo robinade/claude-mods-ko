@@ -1,0 +1,12 @@
+{
+  "name": "plain-talk",
+  "version": "0.3.0-ko.2",
+  "description": "Claude가 쉽고 완결된 한국어로 답하게 해요. 세션 상태 줄과, 세션이 끝나 확인이 필요할 때 알림도 보여줘요.",
+  "author": {
+    "name": "robinade",
+    "url": "https://github.com/robinade"
+  },
+  "repository": "https://github.com/robinade/claude-mods-ko",
+  "license": "MIT",
+  "types": "./types/index.d.ts"
+}
