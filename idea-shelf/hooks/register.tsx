@@ -18,11 +18,31 @@ async function storeKey($: EngineInterface) {
   return `ideas:${await $.session.cwd()}`
 }
 
+function showCount($: EngineInterface, list: Idea[]) {
+  $.ui.status(list.length ? `💡 아이디어 ${list.length}개` : undefined)
+}
+
+// The store is the shelf; the atom is this session's copy, which the pane draws.
+// A /clear starts a new session with an empty atom and no session.start, so the
+// atom is filled from the store once per session id, before anything reads or
+// writes it. Without this the pane looked empty after /clear, and the next idea
+// overwrote the store with a one-item list.
+let loadedFor: string | undefined
+async function load($: EngineInterface) {
+  const session = await $.session.id()
+  if (loadedFor === session) return
+  const stored = ((await $.store.get(await storeKey($))) ?? []) as Idea[]
+  const list = await update($, ideas, () => stored)
+  loadedFor = session
+  showCount($, list)
+}
+
 // Writes the shelf to the atom (redraws) and the store (survives sessions).
 async function save($: EngineInterface, fn: (list: Idea[]) => Idea[]) {
+  await load($)
   const list = await update($, ideas, fn)
   await $.store.set(await storeKey($), list)
-  $.ui.status(list.length ? `💡 아이디어 ${list.length}개` : undefined)
+  showCount($, list)
 }
 
 async function add($: EngineInterface, text: string, source: Idea['source'] = 'you') {
@@ -70,11 +90,16 @@ export const register: Register = on => {
       },
       isDeferred: false,
     })
-    const stored = ((await $.store.get(await storeKey($))) ?? []) as Idea[]
-    await save($, () => stored)
+    await load($)
 
     return next(e)
   })
+
+  // After a /clear: the new session's atom starts empty, so fill it again.
+  on('classic.SessionStart', async ($, e, next) => {
+    await load($)
+    return next(e)
+  }).catch(($, e, next) => next(e)) // a load slip never blocks the session
 
   // Tell the model about the tool, wherever it is offered.
   on('prompt.compose', async ($, e, next) => {
@@ -94,6 +119,7 @@ export const register: Register = on => {
   on('command.run', { command: 'idea' }, async ($, e) => {
     const text = e.args.trim()
     if (!text) {
+      await load($)
       await $.ui.open({ id: PANE, title: '아이디어 선반', focus: true })
       return { text: '아이디어 선반을 열었어요.' }
     }
@@ -105,6 +131,7 @@ export const register: Register = on => {
   on('turn.start', async ($, e, next) => {
     topics = new Set(words(e.text))
     shelvedThisTurn = new Set()
+    await load($)
     await update($, nudge, () => [])
     return next(e)
   })

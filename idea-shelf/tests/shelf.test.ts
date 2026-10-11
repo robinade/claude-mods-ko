@@ -1,4 +1,5 @@
 import { expect, mock, test } from 'claude-code/testing'
+import type { Idea } from '../types'
 
 for (const surface of ['terminal', 'desktop'] as const) {
   test(`shelve via /idea, send from pane (${surface})`, async ($, on) => {
@@ -8,6 +9,7 @@ for (const surface of ['terminal', 'desktop'] as const) {
     on('store.get', ($, e) => ({ value: store[e.key] }))
     on('store.set', ($, e) => { store[e.key] = e.value; return { value: undefined } })
     on('session.cwd', () => ({ value: '/proj/a' }))
+    on('session.id', () => ({ value: 's1' }))
     on('prompt.submit', ($, e) => {
       sent.push(e.text)
       return { text: e.text }
@@ -33,6 +35,7 @@ for (const surface of ['terminal', 'desktop'] as const) {
     on('store.get', ($, e) => ({ value: store[e.key] }))
     on('store.set', ($, e) => { store[e.key] = e.value; return { value: undefined } })
     on('session.cwd', () => ({ value: '/proj/a' }))
+    on('session.id', () => ({ value: 's1' }))
     on('prompt.submit', ($, e) => { sent.push(e.text); return { text: e.text } })
     on('prompt.compose', () => ({ sections: [] }))
     on('turn.start', ($, e) => ({ turnId: e.turnId }))
@@ -90,6 +93,7 @@ test('Korean: /idea keeps the text as typed, and a Korean turn nudges the fittin
   on('store.get', ($, e) => ({ value: store[e.key] }))
   on('store.set', ($, e) => { store[e.key] = e.value; return { value: undefined } })
   on('session.cwd', () => ({ value: '/proj/ko' }))
+  on('session.id', () => ({ value: 's1' }))
   on('prompt.submit', ($, e) => { sent.push(e.text); return { text: e.text } })
   on('turn.start', ($, e) => ({ turnId: e.turnId }))
   on('turn.complete', () => ({ text: '' }))
@@ -119,3 +123,42 @@ test('Korean: /idea keeps the text as typed, and a Korean turn nudges the fittin
   await band.press({ key: 'nudge-send' })
   expect(sent).toEqual(['결제 화면에 로딩 스피너 넣기'])
 })
+
+for (const surface of ['terminal', 'desktop'] as const) {
+  test(`after /clear the shelf is read from the store again, and nothing stored is lost (${surface})`, async ($, on) => {
+    mock.clock(on)
+    let session = 's1'
+    const store: Record<string, unknown> = {}
+    on('store.get', ($, e) => ({ value: store[e.key] }))
+    on('store.set', ($, e) => { store[e.key] = e.value; return { value: undefined } })
+    on('session.cwd', () => ({ value: '/proj/a' }))
+    on('session.id', () => ({ value: session }))
+    on('classic.SessionStart', () => ({}))
+    on('ui.open', () => ({ value: { isPlaced: true } }))
+    on('ui.status', () => ({ value: undefined }))
+    on('turn.start', ($, e) => ({ turnId: e.turnId }))
+
+    await $.command.run({ command: 'idea', args: '첫 번째 아이디어' } as never)
+
+    // /clear: a new session id, no session.start; meanwhile the store holds
+    // more than this process's copy (shelved from another session)
+    session = 's2'
+    store['ideas:/proj/a'] = [...(store['ideas:/proj/a'] as Idea[]), { id: 'x', text: '다른 세션 아이디어', source: 'claude' }]
+    await $.classic.SessionStart({ source: 'clear' } as never)
+
+    await $.command.run({ command: 'idea', args: '' } as never)
+    const ui = await $.ui.mount({ plugin: 'idea-shelf', surface, component: 'Pane', props: {} as never, requestId: 'idea-shelf' })
+    expect(await ui.find({ text: '첫 번째 아이디어' })).toBeDefined()
+    expect(await ui.find({ text: '다른 세션 아이디어' })).toBeDefined()
+
+    // a new idea is added to what is stored, never in its place
+    await $.command.run({ command: 'idea', args: '세 번째 아이디어' } as never)
+    expect(store['ideas:/proj/a']).toMatchObject([{ text: '첫 번째 아이디어' }, { text: '다른 세션 아이디어' }, { text: '세 번째 아이디어' }])
+
+    // the next session id (a later /clear) loads again, even with no SessionStart seen
+    session = 's3'
+    store['ideas:/proj/a'] = [...(store['ideas:/proj/a'] as Idea[]), { id: 'y', text: '네 번째 아이디어', source: 'you' }]
+    await $.turn.start({ text: '아무 작업', turnId: 't1' })
+    expect(await ui.find({ text: '네 번째 아이디어' })).toBeDefined()
+  })
+}

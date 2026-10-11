@@ -1,6 +1,6 @@
 {
   "name": "idea-shelf",
-  "version": "0.2.0-ko.1",
+  "version": "0.2.0-ko.2",
   "description": "작업 중 떠오른 곁가지 아이디어를 /idea 로 선반에 올려 두고(Claude도 직접 올려요), 나중에 클릭 한 번으로 Claude에게 보내요",
   "author": {
     "name": "robinade",
