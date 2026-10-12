@@ -8,6 +8,8 @@
 
 한국어판 제작: [robinade](https://github.com/robinade)
 
+AI LABS의 Claude Code mod 소개 영상을 보고 영감을 받아 만들었어요.
+
 <p align="center">
   <img src="docs/media/prompt-enhancer-button.gif" alt="프롬프트 다듬기: 입력창에 쓴 짧은 초안이 다듬기 버튼 한 번으로 진행 순서와 완료 기준이 있는 프롬프트로 바뀌는 모습" width="820">
 </p>
