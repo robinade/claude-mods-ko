@@ -199,3 +199,70 @@ claude plugin install video-to-game@video-to-game
 > recorded take of you playing it.
 
 필요한 것: Python 3.9+, ffmpeg, Node 18+ (`playwright-core`), `pip install fal-client`, `FAL_KEY`.
+
+## 7. 30초 게임플레이 영상 (원테이크)
+
+Kling 한 번 생성은 보통 10초(모델에 따라 최대 15초)라서, 30초는 **10초 × 3구간**으로 만듭니다.
+
+- **방법 A (권장)**: 구간 1을 생성 → 마음에 드는 테이크에서 **Extend**에 구간 2 문장 → 다시 Extend에 구간 3 문장.
+- **방법 B**: 구간마다 따로 생성하고, 앞 구간의 **마지막 프레임을 다음 구간의 첫 프레임(Image-to-Video)**으로 넣은 뒤 편집기로 이어 붙이기.
+- **방법 C**: 30초 단일 생성이나 멀티샷을 지원하는 모드라면 아래 "통합 프롬프트"를 한 번에 넣기.
+
+카메라를 바꾸지 않는 것이 핵심입니다. 세 구간 모두 같은 카메라(주인공 뒤 3인칭)를 써야 "실제 플레이 녹화"처럼 보이고,
+video-to-game 스킬에 넣었을 때도 안정된 샷으로 읽힙니다.
+
+### 통합 프롬프트 (30초)
+
+```text
+[공통 스타일 블록]
+30-second continuous gameplay recording of a cute 3D hide-and-seek party game, captured from a real play
+session. One unbroken shot, third-person game camera locked behind and slightly above the player character,
+smooth game-like follow with slight lag, no cuts, no cinematic angles.
+The player is a chubby yellow plush duckling with a red bandana inside a giant cozy toy store at night,
+tall wooden shelves packed with real stuffed toys, warm lamplight pools and soft blue shadows.
+0-10s: the duckling sprints in wobbly clumsy steps down an aisle while other plush animals (orange corgi,
+pink bunny, polar bear cub) scatter to hide; it trips, rolls, gets up and climbs onto a low shelf between
+real stuffed toys.
+10-20s: a grey plush shark seeker with a big flashlight waddles into the aisle; the beam sweeps across the
+shelf; the duckling freezes in a stiff silly toy pose and the beam passes over it; further down the aisle
+the pink bunny wobbles, the shark grabs it and tosses it in floppy ragdoll physics into a ball pit.
+20-30s: the shark turns away; the duckling hops down and dashes to a safer hiding spot inside an open toy
+box, closing the lid just as the flashlight returns; the beam lingers, then moves on; the lid lifts
+slightly and the duckling peeks out with a relieved wobble.
+Consistent characters and lighting throughout, readable game composition. No text, no HUD, no UI.
+```
+
+### 구간별 프롬프트 (Extend / 이어 붙이기용)
+
+**구간 1 (0~10초): 숨을 곳 찾기**
+
+```text
+[공통 스타일 블록]
+Continuous gameplay recording, third-person game camera locked behind and slightly above a chubby yellow
+plush duckling with a red bandana, smooth follow, no cuts. Inside a giant cozy toy store at night, tall
+wooden shelves full of real stuffed toys. The duckling sprints in wobbly clumsy steps down the aisle while
+an orange corgi, a pink bunny and a polar bear cub scatter to hide around it. The duckling trips, rolls,
+pops back up and climbs onto a low shelf, squeezing between real stuffed toys.
+```
+
+**구간 2 (10~20초): 손전등 통과 + 다른 플레이어 발각** (Extend 문장)
+
+```text
+Same camera behind the duckling. A grey plush shark seeker with a big flashlight waddles into the aisle,
+sniffing the air. The warm beam sweeps across the shelf; the duckling freezes in a stiff silly toy pose and
+the light passes over it. Further down the aisle the pink bunny wobbles; the shark grabs it in a floppy hug
+and tosses it in ragdoll physics into a ball pit, balls bouncing everywhere.
+```
+
+**구간 3 (20~30초): 탈출과 재은신** (Extend 문장)
+
+```text
+Same camera behind the duckling. The shark turns away; the duckling hops down and dashes in wobbly steps to
+an open toy box, dives in and closes the lid just as the flashlight swings back. The beam lingers on the
+box, then moves on. The lid lifts slightly and the duckling peeks out with a relieved wobble.
+```
+
+**팁**
+- 구간마다 3테이크 정도 뽑고, 캐릭터 얼굴과 색이 가장 덜 변한 것을 이어 갑니다.
+- #0 캐릭터 시트를 레퍼런스 이미지로 넣으면 30초 동안 오리가 다른 캐릭터로 변하는 일이 크게 줄어듭니다.
+- 스킬에 넣을 때는 30초 전체를 `gameplay.mp4`로 넣어도 되지만, 스킬은 그중 가장 안정된 10초 정도를 기준으로 삼습니다.
