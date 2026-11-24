@@ -19,7 +19,7 @@
 처음 한 번은 `Add marketplace?`를 물어요. `y`를 누르고, 설치 범위는 맨 위의 `user`에서 Enter를 눌러요. 그 세션에서 바로 켜지고, 이후 여는 모든 세션에서도 켜져요.
 
 - **업데이트**: `claude plugin marketplace update claude-mods-ko`를 실행한 다음 `claude plugin update prompt-enhancer@claude-mods-ko`를 실행하고, Claude Code를 다시 시작해요.
-- **필요 조건**(Claude Code 2.1.295 이상, 모델 호출 비용, `CLAUDE_CODE_ATTRIBUTION_HEADER`)과 6종을 한 번에 설치하는 방법은 [mod 모음 README](../README.md)에 있어요.
+- **필요 조건**(Claude Code 2.1.295 이상, 모델 호출 비용, `CLAUDE_CODE_ATTRIBUTION_HEADER`)과 두 mod(prompt-enhancer, assumption-tracker)를 한 번에 설치하는 방법은 [mod 모음 README](../README.md)에 있어요.
 - **설치 없이 한 세션만 써 보기**: 레포를 받은 뒤(`git clone https://github.com/robinade/claude-mods-ko`) `claude --plugin-dir claude-mods-ko/prompt-enhancer`로 실행해요.
 
 ## 사용법

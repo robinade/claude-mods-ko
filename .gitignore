@@ -6,3 +6,8 @@
 clawd-pet/
 design-direction/
 basic-claude/sounds/done.aiff
+# Retired from the repo on 2026-11-24 (only prompt-enhancer and assumption-tracker are published). Source kept on this machine.
+basic-claude/
+idea-shelf/
+session-monitor/
+session-tracker/
